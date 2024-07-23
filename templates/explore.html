@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block title %}Explore | BlogWeb{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1 class="mb-4">Search</h1>
+    <form class="d-flex">
+        <input class="form-control me-2" type="search" name="query" value="{{ query }}" placeholder="Search..." aria-label="Search">
+        <button class="btn btn-outline-primary" type="submit">Search</button>
+    </form>
+
+    {% if post %}
+        <h2 class="mt-4">Search Results</h2>
+        <ul class="list-styled">
+            {% for p in post %}
+            <div class="mb-2">
+            <li>{{p.title}}</li>
+            <a href="/post/{{p.slug}}">Read</a>
+        </div>
+            {% empty %}
+
+            <p>No Result Found</p>
+
+            {% endfor %}
+        </ul>
+    {% endif %}
+</div>
+{% endblock %}

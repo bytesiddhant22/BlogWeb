@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block title %}Create Post | BlogWeb{% endblock %}
+
+{% block content %}
+<body>
+  <div class="container">
+    <div class="card p-4 mt-5">
+      <h2 class="mb-4">Create New Post</h2>
+      <form action="/createpost/" method="post" autocomplete="off" >
+        <div class="mb-3">
+          <label for="title" class="form-label">Title</label>
+          <input type="text" class="form-control" id="title" name="title" required>
+        </div>
+        {% csrf_token %}
+        <div class="mb-3">
+          <label for="content" class="form-label">Content</label>
+          <textarea class="form-control" id="content" name="content" rows="6" required></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Post</button>
+      </form>
+    </div>
+  </div>
+
+
+
+{% endblock %}
