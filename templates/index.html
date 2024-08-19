@@ -19,56 +19,32 @@
         <!-- Blog entries-->
         <div class="col-lg-8">
             <!-- Featured blog post-->
+            {% if featured %}
             <div class="card mb-4">
                 <div class="card-body">
-                    <div class="small text-muted">January 1, 2023</div>
-                    <h2 class="card-title">Featured Post Title</h2>
-                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque, nulla? Quos cum ex quis soluta, a laboriosam. Dicta expedita corporis animi vero voluptate voluptatibus possimus, veniam magni quis!</p>
-                    <a class="btn btn-primary" href="#!">Read more →</a>
+                    <div class="small text-muted">{{ featured.created }}</div>
+                    <h2 class="card-title h4">{{ featured.title }}</h2>
+                    <p class="card-text">{{ featured.content |truncatewords:20  }}</p>
+                    <a class="btn btn-primary" href="/post/{{featured.slug}}">Read more →</a> <!-- Ensure URL pattern and view exist -->
                 </div>
             </div>
-            <!-- Nested row for non-featured blog posts-->
+        {% endif %}
+
             <div class="row">
-                <div class="col-lg-6">
-                    <!-- Blog post-->
-                    <div class="card mb-4">
+                {% for post in normalPost %}
+                <!-- Blog post -->
+                <div class="col-md-6 mb-4">
+                    <div class="card h-100">
                         <div class="card-body">
-                            <div class="small text-muted">January 1, 2023</div>
-                            <h2 class="card-title h4">Post Title</h2>
-                            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque, nulla.</p>
-                            <a class="btn btn-primary" href="#!">Read more →</a>
-                        </div>
-                    </div>
-                    <!-- Blog post-->
-                    <div class="card mb-4">
-                        <div class="card-body">
-                            <div class="small text-muted">January 1, 2023</div>
-                            <h2 class="card-title h4">Post Title</h2>
-                            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque, nulla.</p>
-                            <a class="btn btn-primary" href="#!">Read more →</a>
+                            <div class="small text-muted">{{ post.created }}</div>
+                            <h2 class="card-title h5">{{ post.title }}</h2>
+                            <p class="card-text">{{ post.content|truncatewords:20 }}</p> <!-- Truncate content for better display -->
+                            <a class="btn btn-primary" href="/post/{{post.slug}}">Read more →</a> <!-- Ensure URL pattern and view exist -->
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-6">
-                    <!-- Blog post-->
-                    <div class="card mb-4">
-                        <div class="card-body">
-                            <div class="small text-muted">January 1, 2023</div>
-                            <h2 class="card-title h4">Post Title</h2>
-                            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque, nulla.</p>
-                            <a class="btn btn-primary" href="#!">Read more →</a>
-                        </div>
-                    </div>
-                    <!-- Blog post-->
-                    <div class="card mb-4">
-                        <div class="card-body">
-                            <div class="small text-muted">January 1, 2023</div>
-                            <h2 class="card-title h4">Post Title</h2>
-                            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque, nulla? Quos cum ex quis soluta, a laboriosam.</p>
-                            <a class="btn btn-primary" href="#!">Read more →</a>
-                        </div>
-                    </div>
-                </div>
+                {% endfor %}
+            
             </div>
            
         </div>

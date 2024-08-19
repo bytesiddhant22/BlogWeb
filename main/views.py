@@ -5,7 +5,11 @@ from blog.models import Post
 # Create your views here.
 
 def index(request):
-    return render(request , 'index.html')
+    featured = Post.objects.filter(reach='featured').first()
+    normalpost = Post.objects.filter(reach='normal').order_by('-created')[:6]
+
+
+    return render(request , 'index.html' , {'featured':featured , 'normalPost':normalpost})
 
 def contactus(request):
     if request.method == "POST":
@@ -29,8 +33,10 @@ def explore(request):
     if query:
         resultPost = Post.objects.filter(title__icontains=query)
 
+    rposts = Post.objects.order_by('?')[:3]
     context = {
         'query':query,
-        'post':resultPost
+        'post':resultPost,
+        'rpost':rposts
     }
     return render(request , 'explore.html', context)
