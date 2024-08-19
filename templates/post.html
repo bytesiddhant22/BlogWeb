@@ -21,6 +21,36 @@
                 <section class="mb-5">
                     <p class="fs-5 mb-4">{{post.content}}</p>
                 </section>
+
+    
+            
+
+                    <!-- Comments section-->
+                    <section class="mb-5">
+                        <div class="card bg-light">
+                            <div class="card-body">
+                                <h3>Comments </h3>
+                                <form method="post" action="/post/{{post.slug}}" class="mb-2">
+                                    {% csrf_token %}<textarea class="form-control" name="comment" rows="3" placeholder="Join the discussion and leave a comment!"></textarea>
+                                    <button class="btn btn-primary mt-1" type="submit">Comment</button>
+
+                                </form>
+                                          
+                                <!-- Single comment-->
+                                 {% for comment in comments %}
+                                <div class="d-flex">
+                                    <div class="ms-3">
+                                        <div class="fw-bold">{{comment.author}}</div>
+                                        {{comment.content}}<br>
+                                        {{comment.created_at}}                                    </div>
+                                </div>
+                                {% empty %}
+                                <h3>No comments</h3>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </section>
+
             </article>
         </div>
     </div>

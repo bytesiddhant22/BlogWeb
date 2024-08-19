@@ -1,7 +1,7 @@
 from django.shortcuts import render , redirect , get_object_or_404
 from django.http import HttpResponseForbidden
 from django.contrib.auth.decorators import login_required
-from .models import Post
+from .models import Post , Comment
 from django.utils import timezone
 from django.utils.text import slugify
 from django.contrib import messages
@@ -10,7 +10,19 @@ from .utils import unique_slugify
 
 def blogpost(request , slug):
     post = get_object_or_404(Post , slug=slug)
-    return render(request , 'post.html' , {'post':post})
+    if request.method == 'POST':
+        commentdata = request.POST['comment']
+        
+        if commentdata:
+            Comment.objects.create(
+                author=request.user,
+                post=post,
+                content=commentdata
+            )
+            return redirect('blogpost', slug=post.slug)
+    else:
+        comments = post.comments.all()
+        return render(request , 'post.html' , {'post':post , 'comments':comments})
 
 def createPost(request):
     if request.method == "POST":
